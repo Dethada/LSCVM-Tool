@@ -174,13 +174,16 @@ def execute(bytecode: str, verbose: bool = False):
 
 def main():
     parser = argparse.ArgumentParser()
+    parser.add_argument(
+        '-f', '--file', help='The file containing the code to execute', required=True)
     parser.add_argument('-v', '--verbose', dest='verbose',
                         action='store_true', help='Show debugging information')
     parser.set_defaults(verbose=False)
     args = parser.parse_args()
 
-    code: str = input('Code: ')
-    print()
+    with open(args.file, 'r') as f:
+        code: str = f.read()
+
     execute(code, verbose=args.verbose)
 
 

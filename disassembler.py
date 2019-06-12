@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from typing import List, Dict
+import argparse
 import common
 
 def format_disassembly(addr: int, instruction: str) -> str:
@@ -21,8 +22,14 @@ def disassemble(bytecode: str) -> str:
 
 
 def main():
-    code: str = input('Code: ')
-    print()
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        '-f', '--file', help='The file containing the assembly code of LSCVM', required=True)
+    args = parser.parse_args()
+
+    with open(args.file, 'r') as f:
+        code: str = f.read()
+
     result: str = disassemble(code)
     print(result)
 
